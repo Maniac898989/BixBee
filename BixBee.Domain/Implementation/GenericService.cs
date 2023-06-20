@@ -18,6 +18,48 @@ namespace BixBee.Domain.Implementation
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<Result> GetInstitutionTypes()
+        {
+            try
+            {
+                var institutionTypes = await _context.InstitutionTypes.Select(x => new { ID = x.ID, Type = x.Type }).ToListAsync();
+                if (institutionTypes != null)
+                {
+                    return new Result { IsSuccessful = true, Message = "Fetch Successful", ReturnedObject = institutionTypes };
+                }
+                else
+                {
+                    return new Result { IsSuccessful = false, Message = "Failed to get request" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+           
+        }
+
+        public async Task<Result> GetInstitutionCategory()
+        {
+            try
+            {
+                var institutionTypes = await _context.InstitutionCategories.Select(x => new {ID = x.Id, Category = x.Category}).ToListAsync();
+                if (institutionTypes != null)
+                {
+                    return new Result { IsSuccessful = true, Message = "Fetch Successful", ReturnedObject = institutionTypes };
+                }
+                else
+                {
+                    return new Result { IsSuccessful = false, Message = "Failed to get request" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+
+        }
+
         public async Task<Result> GetAllStates()
         {
             Result res = new Result();
@@ -149,6 +191,33 @@ namespace BixBee.Domain.Implementation
 
         }
 
+        public async Task<Result> GetAllPolytechnics()
+        {
+            try
+            {
+                var AllInstitutions = await _context.Institutions.Where(x => x.TypeID == (int)InstitutionType.Polytechnic)
+                .Select(x => new UniversityObject
+                {
+                    StateCode = x.StateCode,
+                    University = x.University,
+                    Type = x.Type.Type,
+                    Category = x.Category.Category
+                }).ToListAsync();
+
+                if (AllInstitutions != null) { return new Result { IsSuccessful = true, Message = "Fetch Successful", ReturnedObject = AllInstitutions }; }
+                else
+                {
+                    return new Result { IsSuccessful = false, Message = "Failed to get request" };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+
+        }
+
         public async Task<Result> GetAllFederalUniversities()
         {
             try
@@ -178,11 +247,27 @@ namespace BixBee.Domain.Implementation
 
         }
 
+        public async Task<Result> GetAllPrivateUniversities()
+        {
+            try
+            {
+                return await FetchAllInstitutionbyType((int)InstitutionType.Univesity, (int)InstitutionCategory.Private_University);
+
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+
+        }
+
+
+
         public async Task<Result> FetchAllInstitutionbyType(int Type, int Category)
         {
             try
             {
-                var AllInstitutions = await _context.Institutions.Where(x => x.TypeID == (int)InstitutionType.Univesity && x.CategoryID == (int)InstitutionCategory.State_University)
+                var AllInstitutions = await _context.Institutions.Where(x => x.TypeID == Type && x.CategoryID == Category)
                 .Select(x => new UniversityObject
                 {
                     StateCode = x.StateCode,

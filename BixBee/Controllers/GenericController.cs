@@ -18,6 +18,21 @@ namespace BixBee.Controllers
             _igenericService = igenericService ?? throw new ArgumentNullException(nameof(igenericService));
         }
 
+        [HttpGet("get-institution-type")]
+        public async Task<IActionResult> GetInstitutionType()
+        {
+            var states = await _igenericService.GetInstitutionTypes();
+            return Ok(states); ;
+        }
+
+
+        [HttpGet("get-institution-category")]
+        public async Task<IActionResult> GetInstitutionCategory()
+        {
+            var states = await _igenericService.GetInstitutionCategory();
+            return Ok(states); ;
+        }
+
         [HttpGet("get-all-states")]
         public async Task<IActionResult> GetStates()
         {
@@ -46,6 +61,13 @@ namespace BixBee.Controllers
             return Ok(Institutions); ;
         }
 
+        [HttpGet("get-all-polytechnics")]
+        public async Task<IActionResult> GetAllPolytec()
+        {
+            var Institutions = await _igenericService.GetAllPolytechnics();
+            return Ok(Institutions); ;
+        }
+
         [HttpGet("get-all-federal-universities")]
         public async Task<IActionResult> GetAllFederalUniversities()
         {
@@ -63,7 +85,7 @@ namespace BixBee.Controllers
         [HttpGet("get-all-private-universities")]
         public async Task<IActionResult> GetAllPrivateUniversities()
         {
-            var Institutions = await _igenericService.GetAllStateUniversities();
+            var Institutions = await _igenericService.GetAllPrivateUniversities();
             return Ok(Institutions); ;
         }
     }
