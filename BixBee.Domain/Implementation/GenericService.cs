@@ -96,7 +96,7 @@ namespace BixBee.Domain.Implementation
             return res;
         }
 
-        public async Task<Result> GetAllUniversities()
+        public async Task<Result> GetAllInstitutions()
         {
             try
             {
@@ -122,11 +122,11 @@ namespace BixBee.Domain.Implementation
             
         }
 
-        public async Task<Result> GetAllFederalUniversities()
+        public async Task<Result> GetAllUniversities()
         {
             try
             {
-                var AllInstitutions = await _context.Institutions
+                var AllInstitutions = await _context.Institutions.Where(x => x.TypeID == (int)InstitutionType.Univesity)
                 .Select(x => new UniversityObject
                 {
                     StateCode = x.StateCode,
@@ -134,6 +134,7 @@ namespace BixBee.Domain.Implementation
                     Type = x.Type.Type,
                     Category = x.Category.Category
                 }).ToListAsync();
+
                 if (AllInstitutions != null) { return new Result { IsSuccessful = true, Message = "Fetch Successful", ReturnedObject = AllInstitutions }; }
                 else
                 {
@@ -147,5 +148,62 @@ namespace BixBee.Domain.Implementation
             }
 
         }
+
+        public async Task<Result> GetAllFederalUniversities()
+        {
+            try
+            {
+
+                return await FetchAllInstitutionbyType((int)InstitutionType.Univesity, (int)InstitutionCategory.Federal_University);
+               
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+
+        }
+
+        public async Task<Result> GetAllStateUniversities()
+        {
+            try
+            {
+               return await FetchAllInstitutionbyType((int)InstitutionType.Univesity, (int)InstitutionCategory.State_University);
+
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+
+        }
+
+        public async Task<Result> FetchAllInstitutionbyType(int Type, int Category)
+        {
+            try
+            {
+                var AllInstitutions = await _context.Institutions.Where(x => x.TypeID == (int)InstitutionType.Univesity && x.CategoryID == (int)InstitutionCategory.State_University)
+                .Select(x => new UniversityObject
+                {
+                    StateCode = x.StateCode,
+                    University = x.University,
+                    Type = x.Type.Type,
+                    Category = x.Category.Category
+                }).ToListAsync();
+
+                if (AllInstitutions != null) { return new Result { IsSuccessful = true, Message = "Fetch Successful", ReturnedObject = AllInstitutions }; }
+                else
+                {
+                    return new Result { IsSuccessful = false, Message = "Failed to get request" };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new Result { IsSuccessful = false, Message = ex.Message.ToString() };
+            }
+        }
     }
+
+   
 }

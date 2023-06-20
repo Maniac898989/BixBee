@@ -12,7 +12,10 @@ namespace BixBee.Domain.Interface
     {
         Task<Result> GetAllStates();
         Task<Result> GetAllLGAs();
+        Task<Result> GetAllInstitutions();
         Task<Result> GetAllUniversities();
+        Task<Result> GetAllFederalUniversities();
+        Task<Result> GetAllStateUniversities();
 
     }
 }

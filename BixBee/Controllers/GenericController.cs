@@ -35,9 +35,36 @@ namespace BixBee.Controllers
         [HttpGet("get-all-institutions")]
         public async Task<IActionResult> GetAllInstitutions()
         {
+            var Institutions = await _igenericService.GetAllInstitutions();
+            return Ok(Institutions); ;
+        }
+
+        [HttpGet("get-all-universities")]
+        public async Task<IActionResult> GetAllUniversities()
+        {
             var Institutions = await _igenericService.GetAllUniversities();
             return Ok(Institutions); ;
         }
 
+        [HttpGet("get-all-federal-universities")]
+        public async Task<IActionResult> GetAllFederalUniversities()
+        {
+            var Institutions = await _igenericService.GetAllFederalUniversities();
+            return Ok(Institutions); ;
+        }
+
+        [HttpGet("get-all-state-universities")]
+        public async Task<IActionResult> GetAllStateUniversities()
+        {
+            var Institutions = await _igenericService.GetAllStateUniversities();
+            return Ok(Institutions); ;
+        }
+
+        [HttpGet("get-all-private-universities")]
+        public async Task<IActionResult> GetAllPrivateUniversities()
+        {
+            var Institutions = await _igenericService.GetAllStateUniversities();
+            return Ok(Institutions); ;
+        }
     }
 }

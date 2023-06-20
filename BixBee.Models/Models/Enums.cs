@@ -13,7 +13,7 @@ namespace BixBee.Models.Models
         CollegeOfEducation = 3
     }
 
-    public enum InstiutionCategory
+    public enum InstitutionCategory
     {
         Federal_University = 1,
         State_University = 2,
