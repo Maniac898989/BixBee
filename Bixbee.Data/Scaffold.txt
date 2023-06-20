@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=DESKTOP-5GF0C72;database=EducationApp; user id=sa;password=asdf@1234; Trusted_Connection=false; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Contexts -UseDatabaseNames

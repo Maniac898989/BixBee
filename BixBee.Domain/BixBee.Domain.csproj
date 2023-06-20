@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bixbee.Data\Bixbee.Data.csproj" />
+    <ProjectReference Include="..\BixBee.Models\BixBee.Models.csproj" />
+  </ItemGroup>
+
+</Project>
