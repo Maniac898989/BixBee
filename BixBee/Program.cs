@@ -15,6 +15,7 @@ builder.Services.AddDbContext<EducationAppContext>(options => options.UseSqlServ
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IgenericService, GenericService>();
+builder.Services.AddTransient<IinstitutionService, InstitutionService>();
 
 var app = builder.Build();
 
