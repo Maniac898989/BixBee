@@ -21,7 +21,11 @@ public partial class RegisteredUser
 
     public bool? IsLocked { get; set; }
 
-    public byte[] Password { get; set; }
+    public byte[] PasswordHash { get; set; }
+
+    public byte[] PasswordSalt { get; set; }
+
+    public string VerificationToken { get; set; }
 
     public DateTime? DateCreated { get; set; }
 }

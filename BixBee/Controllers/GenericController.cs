@@ -22,7 +22,7 @@ namespace BixBee.Controllers
         public async Task<IActionResult> GetInstitutionType()
         {
             var states = await _igenericService.GetInstitutionTypes();
-            return Ok(states); ;
+            return Ok(states); 
         }
 
 
@@ -30,21 +30,21 @@ namespace BixBee.Controllers
         public async Task<IActionResult> GetInstitutionCategory()
         {
             var states = await _igenericService.GetInstitutionCategory();
-            return Ok(states); ;
+            return Ok(states); 
         }
 
         [HttpGet("get-all-states")]
         public async Task<IActionResult> GetStates()
         {
             var states = await _igenericService.GetAllStates();
-            return Ok(states); ;
+            return Ok(states); 
         }
 
         [HttpGet("get-all-lga")]
         public async Task<IActionResult> GetLocalGovernments()
         {
             var lgas = await _igenericService.GetAllLGAs();
-            return Ok(lgas); ;
+            return Ok(lgas); 
         }
 
        

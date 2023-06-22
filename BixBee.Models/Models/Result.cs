@@ -12,4 +12,9 @@ namespace BixBee.Models.Models
         public object ReturnedObject { get; set; }
         public string Message { get; set; }
     }
+
+    public class Result<T> : Result
+    {
+        public new T ReturnedObject { get; set;}
+    }
 }

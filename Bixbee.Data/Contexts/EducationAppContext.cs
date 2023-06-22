@@ -88,6 +88,7 @@ public partial class EducationAppContext : DbContext
 
         modelBuilder.Entity<RegisteredUser>(entity =>
         {
+            entity.Property(e => e.ActivationStatus).HasDefaultValueSql("((0))");
             entity.Property(e => e.DateCreated)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -97,6 +98,7 @@ public partial class EducationAppContext : DbContext
             entity.Property(e => e.Firstname)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.IsLocked).HasDefaultValueSql("((0))");
             entity.Property(e => e.LastAccess).HasColumnType("datetime");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
@@ -104,6 +106,7 @@ public partial class EducationAppContext : DbContext
             entity.Property(e => e.PhoneNo)
                 .HasMaxLength(11)
                 .IsUnicode(false);
+            entity.Property(e => e.VerificationToken).IsUnicode(false);
         });
 
         modelBuilder.Entity<State>(entity =>
