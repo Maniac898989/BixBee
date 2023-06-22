@@ -24,6 +24,8 @@ public partial class EducationAppContext : DbContext
 
     public virtual DbSet<LGA> LGAs { get; set; }
 
+    public virtual DbSet<RegisteredUser> RegisteredUsers { get; set; }
+
     public virtual DbSet<State> States { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -82,6 +84,26 @@ public partial class EducationAppContext : DbContext
             entity.HasOne(d => d.State).WithMany(p => p.LGAs)
                 .HasForeignKey(d => d.StateID)
                 .HasConstraintName("FK_LGAs_States");
+        });
+
+        modelBuilder.Entity<RegisteredUser>(entity =>
+        {
+            entity.Property(e => e.DateCreated)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Firstname)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastAccess).HasColumnType("datetime");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PhoneNo)
+                .HasMaxLength(11)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<State>(entity =>
